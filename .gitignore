@@ -1,4 +1,8 @@
 *.dat
 *.out
 *.bin
+*.mp4
+*.png
+*.jpg
+*.jpeg
 /FisicaComp/PrimeraParte(Verlet)/Tarea1/Test
