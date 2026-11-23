@@ -1,6 +1,21 @@
 # Física Computacional 🧮
 
-Prácticas y entregables de la asignatura **Física Computacional** del Grado en Física de la Universidad de Granada (UGR). Las simulaciones están en **Fortran 90**, las gráficas y animaciones se hacen con **gnuplot** y los vídeos/GIF se ensamblan con **ffmpeg**, todo orquestado con scripts **bash**.
+Prácticas de la asignatura **Física Computacional** (3º del Grado en Física, Universidad de Granada). Las simulaciones están en **Fortran 90**, las gráficas y animaciones se hacen con **gnuplot** y los vídeos/GIF se ensamblan con **ffmpeg**, todo orquestado con scripts **bash**.
+
+---
+
+## 🗂️ Cómo se organizaba la asignatura
+
+La asignatura tenía **cuatro bloques**, uno por método numérico. Cada bloque tenía un **problema obligatorio** y **al menos un optativo**. De los cuatro optativos había que entregar **dos, de bloques distintos**: yo hice el de **Schrödinger** y el de **Runge-Kutta**.
+
+| Bloque | Ejercicio de clase | Obligatorio | Optativo propuesto | ¿Entregado? |
+|---|---|---|---|---|
+| [1 — Verlet](1_Verlet/) | Péndulo simple | Sistema solar | Gas de Lennard-Jones | ❌ Solo un borrador inicial |
+| [2 — Monte Carlo](2_MonteCarlo/) | Números aleatorios, cálculo de π | Modelo de Ising 2D | Red neuronal de Hopfield | ❌ Exploratorio, sin verificar |
+| [3 — Crank-Nicolson](3_CrankNicolson/) | — | Schrödinger 1D: partícula en una caja | Oscilador armónico cuántico | ✅ |
+| [4 — Runge-Kutta](4_RungeKutta/) | — | Nave Tierra-Luna (problema restringido de 3 cuerpos) | Péndulo doble y caos | ✅ |
+
+> 📄 **Optativos entregados:** la versión final, con memoria en LaTeX, figuras, vídeos y Docker para reproducirla, está en **[WetZap/Propuestos_Computacional](https://github.com/WetZap/Propuestos_Computacional)**. Las carpetas `Optativo/` de los bloques 3 y 4 son la versión de trabajo y su código no coincide exactamente con el entregado.
 
 ---
 
@@ -8,55 +23,55 @@ Prácticas y entregables de la asignatura **Física Computacional** del Grado en
 
 ```
 Fisica_Computacional/
-├── 1_Verlet/            # Integrador de Verlet: sistema solar, gas de partículas, péndulo
-├── 2_MonteCarlo/        # Números aleatorios, modelo de Ising, red de Hopfield
-├── 3_CrankNicolson/     # Ecuación de Schrödinger 1D con Crank-Nicolson
-└── 4_RungeKutta/        # RK4: viaje Tierra-Luna y péndulo doble caótico
+├── 1_Verlet/
+│   ├── Ejercicio_Pendulo/            # Ejercicio de introducción a Verlet
+│   ├── Obligatorio/                  # Sistema solar
+│   └── borradores/LennardJones_inicio/
+├── 2_MonteCarlo/
+│   ├── Ejercicio_NumerosAleatorios/
+│   ├── Obligatorio/                  # Ising
+│   └── Optativo/                     # Hopfield (sin verificar)
+├── 3_CrankNicolson/
+│   ├── Obligatorio/                  # Partícula en una caja
+│   └── Optativo/                     # Oscilador armónico cuántico
+└── 4_RungeKutta/
+    ├── Obligatorio/                  # Cohete Tierra-Luna
+    └── Optativo/                     # Péndulo doble
 ```
 
-Todas las prácticas siguen el mismo esquema:
+Dentro de cada práctica se sigue el mismo esquema:
 
 ```
 <Práctica>/
-├── README.md     # Qué hace cada programa y cómo ejecutarlo
 ├── Scripts/      # Código Fortran (.f90)
 ├── Animation/    # Plantillas de gnuplot (.plt)
-├── *.sh          # Scripts que compilan, ejecutan y generan gráficas/vídeos
+├── *.sh          # Compilan, ejecutan y generan gráficas/vídeos
 └── borradores/   # (si existe) versiones antiguas o de prueba, sin mantener
 ```
 
 Las carpetas `Data/`, `Datos/`, `Images/`, `Gifs/` y `Video/` se crean al ejecutar y **no se suben** (ver `.gitignore`). Los únicos `.dat` versionados son los **ficheros de entrada** que leen los programas.
 
----
-
-## 📚 Contenido
-
-| Parte | Método | Problemas |
-|---|---|---|
-| [1 — Verlet](1_Verlet/) | Verlet en velocidades | Sistema solar (órbitas, periodos, energía y momento angular), gas de 100 partículas con potencial tipo Lennard-Jones, péndulo simple |
-| [2 — Monte Carlo](2_MonteCarlo/) | Metropolis | Generador de aleatorios y cálculo de π, modelo de Ising 2D (transición de fase), red de Hopfield (memoria asociativa) |
-| [3 — Crank-Nicolson](3_CrankNicolson/) | Esquema implícito | Schrödinger 1D: pozo infinito (autoestados y paquete gaussiano) y oscilador armónico cuántico vs. clásico |
-| [4 — Runge-Kutta](4_RungeKutta/) | RK4 | Nave Tierra-Luna en el sistema rotante; péndulo doble: mapas de Poincaré y exponente de Lyapunov |
+Cada README de bloque resume qué pedía el enunciado, qué está hecho y qué problemas conocidos hay.
 
 ---
 
 ## 🛠️ Requisitos
 
-- `gfortran` (algunos programas de la Parte 4 usan OpenMP: `-fopenmp`)
+- `gfortran`, con OpenMP (`-fopenmp`) para el optativo de Runge-Kutta, que por defecto compila con Intel `ifx`
 - `gnuplot`
-- `ffmpeg` (vídeos y GIF)
+- `ffmpeg`
 - `bash`, `awk`, `bc` (Linux)
 
 ## ▶️ Ejecución
 
-Cada práctica se ejecuta **desde su propia carpeta**, porque los programas escriben y leen con rutas relativas:
+Cada práctica se ejecuta **desde su propia carpeta**, porque los programas leen y escriben con rutas relativas:
 
 ```bash
 cd 4_RungeKutta/Obligatorio
 bash Bash.sh
 ```
 
-Para compilar un programa suelto, usa siempre `-o NOMBRE.out` (los `.out` están en el `.gitignore`):
+Para compilar un programa suelto, usa siempre `-o NOMBRE.out` (los `.out` están en el `.gitignore`). Algunas líneas pasan de 132 caracteres, así que hace falta `-ffree-line-length-none`:
 
 ```bash
 gfortran -O3 -ffree-line-length-none Scripts/Programa.f90 -o Programa.out && ./Programa.out
@@ -70,4 +85,4 @@ gfortran -O3 -ffree-line-length-none Scripts/Programa.f90 -o Programa.out && ./P
 
 ## 📄 Licencia
 
-Uso académico. Consultar con el autor antes de reutilizar el código.
+Uso académico. Consultar con el autor antes de reutilizar el código. Los enunciados son material de la asignatura y no se incluyen en el repositorio.

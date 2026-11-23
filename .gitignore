@@ -24,12 +24,13 @@ Gifs/
 
 # ── Excepciones: ficheros de ENTRADA que los programas leen ──────────
 # (los abren con status='old'; sin ellos el programa no arranca)
-!1_Verlet/Tarea1_SistemaSolar/Datos/Inicial/planetas.dat
-!1_Verlet/Tarea1_SistemaSolar/Datos/Inicial/Masas.dat
-!1_Verlet/EjercicioEntregable_Pendulo/Iniciales.dat
-!1_Verlet/EjercicioEntregable_Pendulo/Apartado4/Iniciales.dat
-!2_MonteCarlo/ModeloHopfield/Patrones/Patron1.dat
-!2_MonteCarlo/ModeloHopfield/Patrones/Patron2.dat
+!1_Verlet/Obligatorio/Datos/Inicial/planetas.dat
+!1_Verlet/Obligatorio/Datos/Inicial/Masas.dat
+!1_Verlet/Obligatorio/Datos/Inicial/periodos.dat
+!1_Verlet/Ejercicio_Pendulo/Iniciales.dat
+!1_Verlet/Ejercicio_Pendulo/Apartado4/Iniciales.dat
+!2_MonteCarlo/Optativo/Patrones/Patron1.dat
+!2_MonteCarlo/Optativo/Patrones/Patron2.dat
 
 # ── Editor / sistema ─────────────────────────────────────────────────
 .vscode/
