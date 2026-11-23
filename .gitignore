@@ -1,9 +1,36 @@
-*.dat
+# ── Compilados de Fortran ────────────────────────────────────────────
 *.out
-*.bin
+*.o
+*.mod
+*.exe
+fort.*
+tempCodeRunnerFile
+# Compila siempre con -o NOMBRE.out: los ejecutables sin extensión
+# no se pueden ignorar por patrón y acaban subiéndose.
+
+# ── Salidas de simulación (se regeneran con los scripts) ─────────────
+*.dat
+Resultados.txt
+Matrices/
+Data/
+Video/
+Images/
+Gifs/
 *.mp4
 *.png
 *.jpg
 *.jpeg
 *.gif
-/FisicaComp/PrimeraParte(Verlet)/Tarea1/Test
+
+# ── Excepciones: ficheros de ENTRADA que los programas leen ──────────
+# (los abren con status='old'; sin ellos el programa no arranca)
+!1_Verlet/Tarea1_SistemaSolar/Datos/Inicial/planetas.dat
+!1_Verlet/Tarea1_SistemaSolar/Datos/Inicial/Masas.dat
+!1_Verlet/EjercicioEntregable_Pendulo/Iniciales.dat
+!1_Verlet/EjercicioEntregable_Pendulo/Apartado4/Iniciales.dat
+!2_MonteCarlo/ModeloHopfield/Patrones/Patron1.dat
+!2_MonteCarlo/ModeloHopfield/Patrones/Patron2.dat
+
+# ── Editor / sistema ─────────────────────────────────────────────────
+.vscode/
+.DS_Store

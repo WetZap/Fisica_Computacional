@@ -1,66 +1,73 @@
 # Física Computacional 🧮
 
-Repositorio de prácticas y ejercicios entregables de la asignatura **Física Computacional** de la Universidad de Granada (UGR). Implementa los principales métodos numéricos utilizados en física mediante simulaciones computacionales.
+Prácticas y entregables de la asignatura **Física Computacional** del Grado en Física de la Universidad de Granada (UGR). Las simulaciones están en **Fortran 90**, las gráficas y animaciones se hacen con **gnuplot** y los vídeos/GIF se ensamblan con **ffmpeg**, todo orquestado con scripts **bash**.
 
 ---
 
-## 📁 Estructura del proyecto
+## 📁 Estructura
 
 ```
-FisicaComp/
-├── 1_PrimeraParte_Verlet/          # Integración numérica con el algoritmo de Verlet
-│   ├── Tarea1/
-│   ├── TareaEntregable/
-│   └── EjercicioEntregable/
-├── 2_SegundaParte_MonteCarlo/      # Métodos estocásticos de Monte Carlo
-├── 3_TerceraParte_Crank_Nicholson/ # Esquema implícito de Crank-Nicholson (EDPs)
-└── 4_CuartaParte_RungeKutta/       # Integración de EDOs con Runge-Kutta
+Fisica_Computacional/
+├── 1_Verlet/            # Integrador de Verlet: sistema solar, gas de partículas, péndulo
+├── 2_MonteCarlo/        # Números aleatorios, modelo de Ising, red de Hopfield
+├── 3_CrankNicolson/     # Ecuación de Schrödinger 1D con Crank-Nicolson
+└── 4_RungeKutta/        # RK4: viaje Tierra-Luna y péndulo doble caótico
 ```
+
+Todas las prácticas siguen el mismo esquema:
+
+```
+<Práctica>/
+├── README.md     # Qué hace cada programa y cómo ejecutarlo
+├── Scripts/      # Código Fortran (.f90)
+├── Animation/    # Plantillas de gnuplot (.plt)
+├── *.sh          # Scripts que compilan, ejecutan y generan gráficas/vídeos
+└── borradores/   # (si existe) versiones antiguas o de prueba, sin mantener
+```
+
+Las carpetas `Data/`, `Datos/`, `Images/`, `Gifs/` y `Video/` se crean al ejecutar y **no se suben** (ver `.gitignore`). Los únicos `.dat` versionados son los **ficheros de entrada** que leen los programas.
 
 ---
 
 ## 📚 Contenido
 
-### Parte 1 — Algoritmo de Verlet
-Implementación del integrador de Verlet para resolver ecuaciones de movimiento en sistemas físicos. Se aplica a problemas de dinámica molecular y mecánica clásica, conservando la energía a lo largo de la trayectoria.
-
-### Parte 2 — Métodos de Monte Carlo
-Simulaciones basadas en muestreo aleatorio para calcular integrales y estudiar sistemas estadísticos. Incluye aplicaciones en física estadística y estimación de magnitudes físicas.
-
-### Parte 3 — Esquema de Crank-Nicholson
-Resolución numérica de ecuaciones en derivadas parciales (EDPs) mediante el esquema implícito de Crank-Nicholson. Especialmente útil para la ecuación de calor y la ecuación de difusión, garantizando estabilidad incondicional.
-
-### Parte 4 — Runge-Kutta
-Integración de ecuaciones diferenciales ordinarias (EDOs) mediante métodos de Runge-Kutta de orden 4 (RK4). Se aplica a osciladores, problemas de dos cuerpos y otros sistemas dinámicos.
+| Parte | Método | Problemas |
+|---|---|---|
+| [1 — Verlet](1_Verlet/) | Verlet en velocidades | Sistema solar (órbitas, periodos, energía y momento angular), gas de 100 partículas con potencial tipo Lennard-Jones, péndulo simple |
+| [2 — Monte Carlo](2_MonteCarlo/) | Metropolis | Generador de aleatorios y cálculo de π, modelo de Ising 2D (transición de fase), red de Hopfield (memoria asociativa) |
+| [3 — Crank-Nicolson](3_CrankNicolson/) | Esquema implícito | Schrödinger 1D: pozo infinito (autoestados y paquete gaussiano) y oscilador armónico cuántico vs. clásico |
+| [4 — Runge-Kutta](4_RungeKutta/) | RK4 | Nave Tierra-Luna en el sistema rotante; péndulo doble: mapas de Poincaré y exponente de Lyapunov |
 
 ---
 
 ## 🛠️ Requisitos
 
-- Compilador Fortran (p. ej. `gfortran`) o C (`gcc`)
-- `gnuplot` o Python con `matplotlib` para la visualización de resultados
-- Sistema operativo Linux/macOS recomendado
+- `gfortran` (algunos programas de la Parte 4 usan OpenMP: `-fopenmp`)
+- `gnuplot`
+- `ffmpeg` (vídeos y GIF)
+- `bash`, `awk`, `bc` (Linux)
 
-## ▶️ Compilación y ejecución
+## ▶️ Ejecución
+
+Cada práctica se ejecuta **desde su propia carpeta**, porque los programas escriben y leen con rutas relativas:
 
 ```bash
-# Ejemplo para Fortran
-gfortran -o programa programa.f90
-./programa
+cd 4_RungeKutta/Obligatorio
+bash Bash.sh
+```
 
-# Ejemplo para C
-gcc -o programa programa.c -lm
-./programa
+Para compilar un programa suelto, usa siempre `-o NOMBRE.out` (los `.out` están en el `.gitignore`):
+
+```bash
+gfortran -O3 -ffree-line-length-none Scripts/Programa.f90 -o Programa.out && ./Programa.out
 ```
 
 ---
 
 ## 👤 Autor
 
-**Jorge Del Rio** — Grado en Física, Universidad de Granada (UGR)
-
----
+**Jorge del Río López** — Grado en Física, Universidad de Granada (UGR)
 
 ## 📄 Licencia
 
-Este repositorio es de uso académico. Consultar con el autor antes de reutilizar el código.
+Uso académico. Consultar con el autor antes de reutilizar el código.
